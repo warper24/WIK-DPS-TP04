@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployement
+  labels:
+    app_name: application
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app_name: application
+  strategy:
+    rollingUpdate: 
+      maxUnavailable: 50%
+  template:
+    metadata:
+      labels:
+        app_name: application
+    spec: 
+      containers:
+      - name: echo
+        image: registry.cluster.wik.cloud/public/echo
+        ports:
+        - containerPort: 8080
